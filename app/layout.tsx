@@ -3,10 +3,19 @@ import Navigation from "@/app/_components/Navigation";
 import "@/app/globals.css";
 
 export const metadata = {
-  title: "The Wild Oasis",
+  title: {
+    template: "%s | The Wild Oasis",
+    default: "Welcome to The Wild Oasis",
+  },
+  description:
+    "Luxurious cabin hotel located in the heart of the Italian Dolomites, surrounded by and dark forests. Perfect for those who love adventure and relaxation.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className="bg-primary-950 text-primary-100 min-h-screen">
