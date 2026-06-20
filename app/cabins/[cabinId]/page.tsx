@@ -32,10 +32,6 @@ export default async function Page({
   const { cabinId } = await params;
   const cabin = await getCabin(cabinId);
 
-  if (!cabin) {
-    notFound();
-  }
-
   const { image, name, maxCapacity, regularPrice, discount, description } =
     cabin;
 
