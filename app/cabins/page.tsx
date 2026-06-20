@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import CabinCard from "@/app/_components/CabinCard";
+import { getCabins } from "../_lib/data-service";
 
 export const metadata: Metadata = {
   title: "Cabins",
 };
 
-export default function Page() {
-  // CHANGE
-  const cabins: any[] = [];
+export default async function Page() {
+  const cabins = await getCabins();
 
   return (
     <div>
