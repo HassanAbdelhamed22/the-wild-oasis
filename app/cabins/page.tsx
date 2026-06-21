@@ -4,6 +4,8 @@ import { Suspense } from "react";
 
 import CabinListSkeleton from "./loading";
 
+export const revalidate = 60 * 24 * 30; //1 day (ISR)
+
 export const metadata: Metadata = {
   title: "Cabins",
 };
