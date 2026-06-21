@@ -2,8 +2,8 @@ import { getCabins } from "@/app/_lib/data-service";
 import CabinCard from "@/app/_components/CabinCard";
 import { unstable_noStore } from "next/cache";
 
-export default async function CabinList() {
-  // By default, Next.js caches the results of server components. 
+export default async function CabinList({ filter }: { filter: string }) {
+  // By default, Next.js caches the results of server components.
   // This means that the first time a user visits the page, the data is fetched and cached.
   // The next time a user visits the page, the cached data is returned instead of fetching new data.
   // To disable caching, use unstable_noStore().
@@ -15,9 +15,22 @@ export default async function CabinList() {
     return <p className="text-lg">No cabins found.</p>;
   }
 
+  let displayedCabins = cabins;
+  if (filter === "all") {
+    displayedCabins = cabins;
+  } else if (filter === "small") {
+    displayedCabins = cabins.filter((cabin: any) => cabin.maxCapacity <= 3);
+  } else if (filter === "medium") {
+    displayedCabins = cabins.filter(
+      (cabin: any) => cabin.maxCapacity >= 4 && cabin.maxCapacity <= 7,
+    );
+  } else if (filter === "large") {
+    displayedCabins = cabins.filter((cabin: any) => cabin.maxCapacity >= 8);
+  }
+
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-      {cabins.map((cabin) => (
+      {displayedCabins.map((cabin) => (
         <CabinCard cabin={cabin} key={cabin.id} />
       ))}
     </div>

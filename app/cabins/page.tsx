@@ -3,6 +3,7 @@ import CabinList from "../_components/CabinList";
 import { Suspense } from "react";
 
 import CabinListSkeleton from "./loading";
+import Filter from "../_components/Filter";
 
 export const revalidate = 60 * 24 * 30; //1 day (ISR)
 
@@ -10,7 +11,14 @@ export const metadata: Metadata = {
   title: "Cabins",
 };
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ capacity?: string }>;
+}) {
+  const resolvedSearchParams = await searchParams;
+  const filter = resolvedSearchParams?.capacity ?? "all";
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -25,8 +33,12 @@ export default function Page() {
         to paradise.
       </p>
 
-      <Suspense fallback={<CabinListSkeleton />}>
-        <CabinList />
+      <div className="mb-8 flex justify-end">
+        <Filter />
+      </div>
+
+      <Suspense fallback={<CabinListSkeleton />} key={filter}>
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
