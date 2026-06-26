@@ -6,7 +6,7 @@ import CabinListSkeleton from "./loading";
 import Filter from "../_components/Filter";
 import ReservationReminder from "../_components/ReservationReminder";
 
-export const revalidate = 60 * 24 * 30; //1 day (ISR)
+export const revalidate = 86400; //1 day (ISR)
 
 export const metadata: Metadata = {
   title: "Cabins",
