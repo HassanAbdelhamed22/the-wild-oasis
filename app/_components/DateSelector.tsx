@@ -5,13 +5,14 @@ import { differenceInDays, isWithinInterval } from "date-fns";
 import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { Cabin, Settings } from "../_lib/types";
+import { useReservation } from "./ReservationContext";
 
 function isAlreadyBooked(range: DateRange | undefined, datesArr: Date[]) {
   return (
     !!range?.from &&
     !!range?.to &&
     datesArr.some((date) =>
-      isWithinInterval(date, { start: range.from!, end: range.to! })
+      isWithinInterval(date, { start: range.from!, end: range.to! }),
     )
   );
 }
@@ -23,8 +24,14 @@ interface DateSelectorProps {
 }
 
 function DateSelector({ settings, bookedDates, cabin }: DateSelectorProps) {
-  const [range, setRange] = useState<DateRange | undefined>(undefined);
-  const resetRange = () => setRange(undefined);
+
+  const {range, setRange, resetRange} = useReservation();
+
+  // const [range, setRange] = useState<DateRange | undefined>({
+  //   from: undefined,
+  //   to: undefined,
+  // });
+  // const resetRange = () => setRange({ from: undefined, to: undefined });
 
   const { regularPrice, discount } = cabin;
   const { minBookingLength, maxBookingLength } = settings;
