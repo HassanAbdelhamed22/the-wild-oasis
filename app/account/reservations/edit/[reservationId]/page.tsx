@@ -1,3 +1,5 @@
+import UpdateReservationButton from "@/app/_components/UpdateReservationButton";
+import { updateReservation } from "@/app/_lib/actions";
 import { getBooking, getCabin } from "@/app/_lib/data-service";
 
 export default async function Page({
@@ -16,13 +18,21 @@ export default async function Page({
   const cabin = await getCabin(cabinId);
   const { maxCapacity } = cabin;
 
+  const updateReservationAction = updateReservation.bind(
+    null,
+    parseInt(reservationId),
+  );
+
   return (
     <div>
       <h2 className="font-semibold text-2xl text-accent-400 mb-7">
         Edit Reservation #{reservationId}
       </h2>
 
-      <form className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">
+      <form
+        action={updateReservationAction}
+        className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+      >
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select
@@ -55,9 +65,9 @@ export default async function Page({
         </div>
 
         <div className="flex justify-end items-center gap-6">
-          <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
+          <UpdateReservationButton pendingLabel="Updating...">
             Update reservation
-          </button>
+          </UpdateReservationButton>
         </div>
       </form>
     </div>
