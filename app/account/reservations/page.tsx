@@ -1,13 +1,20 @@
 import { Metadata } from "next";
 import ReservationCard from "@/app/_components/ReservationCard";
+import { getBookings } from "@/app/_lib/data-service";
+import { auth } from "@/app/_lib/auth";
 
 export const metadata: Metadata = {
   title: "Reservations",
 };
 
-export default function Page() {
-  // CHANGE
-  const bookings: any[] = [];
+export default async function Page() {
+  const session = await auth();
+  if (!session) {
+    throw new Error("You must be logged in to view your reservations");
+  }
+
+  const guestId = session.user.guestId as number;
+  const bookings = await getBookings(guestId);
 
   return (
     <div>
