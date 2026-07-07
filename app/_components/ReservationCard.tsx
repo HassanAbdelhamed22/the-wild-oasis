@@ -9,7 +9,13 @@ export const formatDistanceFromNow = (dateStr: string) =>
     addSuffix: true,
   }).replace("about ", "");
 
-function ReservationCard({ booking }: { booking: any }) {
+function ReservationCard({
+  booking,
+  onDelete,
+}: {
+  booking: any;
+  onDelete: (bookingId: number) => void;
+}) {
   const {
     id,
     guestId,
@@ -27,7 +33,9 @@ function ReservationCard({ booking }: { booking: any }) {
   const isPastBooking = isPast(new Date(startDate));
 
   return (
-    <div className={`flex border border-primary-800 ${isPastBooking ? "opacity-50" : ""}`}>
+    <div
+      className={`flex border border-primary-800 ${isPastBooking ? "opacity-50" : ""}`}
+    >
       <div className="relative h-32 aspect-square">
         <Image
           src={image}
@@ -82,7 +90,7 @@ function ReservationCard({ booking }: { booking: any }) {
             <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
             <span className="mt-1">Edit</span>
           </Link>
-          <DeleteReservation bookingId={id} />
+          <DeleteReservation bookingId={id} onDelete={onDelete} />
         </div>
       )}
     </div>
