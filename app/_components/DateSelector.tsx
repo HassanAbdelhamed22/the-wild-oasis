@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { differenceInDays, isWithinInterval } from "date-fns";
 import { DayPicker, DateRange } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -24,14 +23,7 @@ interface DateSelectorProps {
 }
 
 function DateSelector({ settings, bookedDates, cabin }: DateSelectorProps) {
-
-  const {range, setRange, resetRange} = useReservation();
-
-  // const [range, setRange] = useState<DateRange | undefined>({
-  //   from: undefined,
-  //   to: undefined,
-  // });
-  // const resetRange = () => setRange({ from: undefined, to: undefined });
+  const { range, setRange, resetRange } = useReservation();
 
   const { regularPrice, discount } = cabin;
   const { minBookingLength, maxBookingLength } = settings;
