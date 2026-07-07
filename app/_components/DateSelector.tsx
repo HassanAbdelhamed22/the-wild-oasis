@@ -25,17 +25,21 @@ interface DateSelectorProps {
 function DateSelector({ settings, bookedDates, cabin }: DateSelectorProps) {
   const { range, setRange, resetRange } = useReservation();
 
+  const displayRange = isAlreadyBooked(range, bookedDates) ? undefined : range;
+
   const { regularPrice, discount } = cabin;
   const { minBookingLength, maxBookingLength } = settings;
 
   const numNights =
-    range?.from && range?.to ? differenceInDays(range.to, range.from) : 0;
+    displayRange?.from && displayRange?.to
+      ? differenceInDays(displayRange.to, displayRange.from)
+      : 0;
   const cabinPrice = numNights * (regularPrice - discount);
 
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
-        className="pt-12 place-self-center"
+        className="pt-12 place-self-center disabled:text-primary-600 disabled:cursor-not-allowed"
         mode="range"
         onSelect={(range) => {
           if (range && isAlreadyBooked(range, bookedDates)) {
@@ -44,7 +48,7 @@ function DateSelector({ settings, bookedDates, cabin }: DateSelectorProps) {
           }
           setRange(range);
         }}
-        selected={range}
+        selected={displayRange}
         min={minBookingLength + 1}
         max={maxBookingLength}
         fromMonth={new Date()}
@@ -52,7 +56,7 @@ function DateSelector({ settings, bookedDates, cabin }: DateSelectorProps) {
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
-        disabled={bookedDates}
+        disabled={[...bookedDates, { before: new Date() }]}
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
