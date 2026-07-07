@@ -172,22 +172,22 @@ export async function createGuest(
   return data;
 }
 
-export async function createBooking(
-  newBooking: Omit<Booking, "id" | "created_at">,
-): Promise<Booking | null> {
-  const { data, error } = await supabase
-    .from("bookings")
-    .insert([newBooking])
-    .select()
-    .single();
+// export async function createBooking(
+//   newBooking: Omit<Booking, "id" | "created_at">,
+// ): Promise<Booking | null> {
+//   const { data, error } = await supabase
+//     .from("bookings")
+//     .insert([newBooking])
+//     .select()
+//     .single();
 
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be created");
-  }
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Booking could not be created");
+//   }
 
-  return data;
-}
+//   return data;
+// }
 
 /////////////
 // UPDATE
@@ -210,33 +210,33 @@ export async function createBooking(
 //   return data;
 // }
 
-export async function updateBooking(
-  id: number | string,
-  updatedFields: Partial<Omit<Booking, "id" | "created_at">>,
-): Promise<Booking | null> {
-  const { data, error } = await supabase
-    .from("bookings")
-    .update(updatedFields)
-    .eq("id", id)
-    .select()
-    .single();
+// export async function updateBooking(
+//   id: number | string,
+//   updatedFields: Partial<Omit<Booking, "id" | "created_at">>,
+// ): Promise<Booking | null> {
+//   const { data, error } = await supabase
+//     .from("bookings")
+//     .update(updatedFields)
+//     .eq("id", id)
+//     .select()
+//     .single();
 
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be updated");
-  }
-  return data;
-}
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Booking could not be updated");
+//   }
+//   return data;
+// }
 
-/////////////
-// DELETE
+// /////////////
+// // DELETE
 
-export async function deleteBooking(id: number | string): Promise<any> {
-  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+// export async function deleteBooking(id: number | string): Promise<any> {
+//   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
 
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be deleted");
-  }
-  return data;
-}
+//   if (error) {
+//     console.error(error);
+//     throw new Error("Booking could not be deleted");
+//   }
+//   return data;
+// }
