@@ -48,7 +48,7 @@ export async function updateProfile(formData: FormData) {
   revalidatePath("/account/profile");
 }
 
-export async function deleteReservation(bookingId: number) {
+export async function deleteBooking(bookingId: number) {
   const session = await auth();
 
   if (!session)
@@ -74,7 +74,7 @@ export async function deleteReservation(bookingId: number) {
   revalidatePath("/account/reservations");
 }
 
-export async function updateReservation(bookingId: number, formData: FormData) {
+export async function updateBooking(bookingId: number, formData: FormData) {
   const session = await auth();
 
   if (!session)
@@ -112,3 +112,5 @@ export async function updateReservation(bookingId: number, formData: FormData) {
   
   redirect("/account/reservations");
 }
+
+

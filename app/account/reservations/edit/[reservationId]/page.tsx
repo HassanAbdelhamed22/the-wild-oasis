@@ -1,5 +1,5 @@
 import UpdateReservationButton from "@/app/_components/UpdateReservationButton";
-import { updateReservation } from "@/app/_lib/actions";
+import { updateBooking } from "@/app/_lib/actions";
 import { getBooking, getCabin } from "@/app/_lib/data-service";
 
 export default async function Page({
@@ -18,7 +18,7 @@ export default async function Page({
   const cabin = await getCabin(cabinId);
   const { maxCapacity } = cabin;
 
-  const updateReservationAction = updateReservation.bind(
+  const updateBookingAction = updateBooking.bind(
     null,
     parseInt(reservationId),
   );
@@ -30,7 +30,7 @@ export default async function Page({
       </h2>
 
       <form
-        action={updateReservationAction}
+        action={updateBookingAction}
         className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
       >
         <div className="space-y-2">
